@@ -197,7 +197,7 @@ namespace kitsune {
         kstring &toUppercase();
 
         /**
-         * 反转字符串 并返回自身引用
+         * 反转字符串(不支持中文) 并返回自身引用
          * @return 自身引用
          */
         kstring &reverse();
