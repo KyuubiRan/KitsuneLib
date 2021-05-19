@@ -27,11 +27,6 @@ namespace kitsune {
 
         inline explicit operator const std::string &() const { return mStr; }
 
-        inline kstring &operator=(std::string &&str) {
-            mStr = str;
-            return *this;
-        }
-
         /**
        * 比较字符串是否相等
        * @param str string
@@ -202,7 +197,7 @@ namespace kitsune {
         kstring &toUppercase();
 
         /**
-         * 反转字符串 并返回自身
+         * 反转字符串 并返回自身引用
          * @return 自身引用
          */
         kstring &reverse();
