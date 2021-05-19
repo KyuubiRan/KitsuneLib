@@ -202,6 +202,12 @@ namespace kitsune {
         kstring &toUppercase();
 
         /**
+         * 反转字符串 并返回自身
+         * @return 自身引用
+         */
+        kstring &reverse();
+
+        /**
          * 查询字符串出现的次数
          * @param sub string
          * @return 次数

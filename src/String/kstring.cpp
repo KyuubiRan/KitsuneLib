@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <algorithm>
 #include "kstring.h"
 #include "StringUtil.h"
 
@@ -26,14 +27,14 @@ kstring kstring::toUpper() const {
 }
 
 kstring &kstring::toLowercase() {
-    for (auto &c : mStr) {
+    for (auto &c : this->mStr) {
         c = std::tolower(c);
     }
     return *this;
 }
 
 kstring &kstring::toUppercase() {
-    for (auto &c :mStr) {
+    for (auto &c : this->mStr) {
         c = std::toupper(c);
     }
     return *this;
@@ -68,4 +69,9 @@ bool kstring::endswith(const string &sub, bool ignoreCase) const {
 
 size_t kstring::queryOccurrenceTimes(const string &sub) const {
     return QueryOccurrenceTimes(this->mStr, sub);
+}
+
+kstring &kstring::reverse() {
+    std::reverse(this->mStr.begin(), this->mStr.end());
+    return *this;
 }
