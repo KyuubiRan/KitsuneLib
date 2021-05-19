@@ -43,7 +43,7 @@ namespace kitsune {
      * 查询字符串开头是否与指定字符串相同
      * @param ori 源字符串
      * @param sub 查询的字符串
-     * @param ignoreCase 无视大小写
+     * @param ignoreCase 忽略大小写
      * @return 是否相同
      */
     bool StartsWith(const std::string &ori, const std::string &sub, bool ignoreCase = false);
@@ -52,7 +52,7 @@ namespace kitsune {
      * 查询字符串结尾是否与指定字符串相同
      * @param ori 源字符串
      * @param sub 查询的字符串
-     * @param ignoreCase 无视大小写
+     * @param ignoreCase 忽略大小写
      * @return 是否相同
      */
     bool EndsWith(const std::string &ori, const std::string &sub, bool ignoreCase = false);
@@ -61,7 +61,7 @@ namespace kitsune {
      * 查询字符串中是否包含指定字符
      * @param ori 源字符串
      * @param sub 查询的字符串
-     * @param ignoreCase 无视大小写
+     * @param ignoreCase 忽略大小写
      * @return 是否包含
      */
     bool Contains(const std::string &ori, const std::string &sub, bool ignoreCase = false);

@@ -99,7 +99,7 @@ namespace kitsune {
         /**
          * 查询字符串中是否包含指定字符
          * @param sub 查询的字符串
-         * @param ignoreCase 无视大小写
+         * @param ignoreCase 忽略大小写
          * @return 是否包含
          */
         [[nodiscard]] bool contains(const std::string &sub, bool ignoreCase = false) const;
@@ -111,7 +111,7 @@ namespace kitsune {
         /**
          * 查询字符串开头是否与指定字符串相同
          * @param sub 查询的字符串
-         * @param ignoreCase 无视大小写
+         * @param ignoreCase 忽略大小写
          * @return 是否相同
          */
         [[nodiscard]] bool startswith(const std::string &sub, bool ignoreCase = false) const;
@@ -123,7 +123,7 @@ namespace kitsune {
         /**
          * 查询字符串结尾是否与指定字符串相同
          * @param sub 查询的字符串
-         * @param ignoreCase 无视大小写
+         * @param ignoreCase 忽略大小写
          * @return 是否相同
          */
         [[nodiscard]] bool endswith(const std::string &sub, bool ignoreCase = false) const;
@@ -201,6 +201,7 @@ namespace kitsune {
         /**
          * 查询字符串出现的次数
          * @param sub string
+         * @param ignoreCase 忽略大小写
          * @return 次数
          */
         [[nodiscard]] size_t queryOccurrenceTimes(const std::string &sub, bool ignoreCase = false) const;
