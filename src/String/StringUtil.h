@@ -65,6 +65,15 @@ namespace kitsune {
      * @return 是否包含
      */
     bool Contains(const std::string &ori, const std::string &sub, bool ignoreCase = false);
+
+    /**
+     * 查询指定字符串在原字符串中出现的次数
+     * @param ori
+     * @param sub
+     * @param ignoreCase
+     * @return 出现次数
+     */
+    size_t QueryOccurrenceTimes(const std::string &ori, const std::string &sub, bool ignoreCase = false);
 }
 
 #endif //KITSUNELIB_STRINGUTIL_H

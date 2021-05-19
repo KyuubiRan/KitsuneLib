@@ -9,7 +9,7 @@
 using std::string;
 using namespace kitsune;
 
-kstring kstring::toLower() {
+kstring kstring::toLower() const {
     kstring tmp = *this;
     for (auto &c : tmp.mStr) {
         c = std::tolower(c);
@@ -17,7 +17,7 @@ kstring kstring::toLower() {
     return tmp;
 }
 
-kstring kstring::toUpper() {
+kstring kstring::toUpper() const {
     kstring tmp = *this;
     for (auto &c :tmp.mStr) {
         c = std::toupper(c);
@@ -39,7 +39,7 @@ kstring &kstring::toUppercase() {
     return *this;
 }
 
-bool kstring::contains(const string &sub, bool ignoreCase) {
+bool kstring::contains(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         ToLowercase(tmp);
@@ -48,7 +48,7 @@ bool kstring::contains(const string &sub, bool ignoreCase) {
     return this->find(sub) != static_cast<size_t >(-1);
 }
 
-bool kstring::startswith(const string &sub, bool ignoreCase) {
+bool kstring::startswith(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         ToLowercase(tmp);
@@ -57,11 +57,15 @@ bool kstring::startswith(const string &sub, bool ignoreCase) {
     return this->substring(0, sub.size()) == sub;
 }
 
-bool kstring::endswith(const string &sub, bool ignoreCase) {
+bool kstring::endswith(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         ToLowercase(tmp);
         return this->toLower().substring(this->size() - tmp.size()) == tmp;
     }
     return this->substring(this->size() - sub.size()) == sub;
+}
+
+size_t kstring::queryOccurrenceTimes(const string &sub) const {
+    return QueryOccurrenceTimes(this->mStr, sub);
 }
