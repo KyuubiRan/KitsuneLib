@@ -7,6 +7,8 @@
 
 #include <string>
 #include <bits/move.h>
+#include <locale>
+#include <codecvt>
 
 namespace kitsune {
 
@@ -21,11 +23,11 @@ namespace kitsune {
     public:
         inline kstring() : mStr() {}
 
-        inline kstring(const char sz[]) : mStr(sz) {}; // NOLINT(google-explicit-constructor)
+        inline kstring(const char sz[]) : mStr(sz) {} // NOLINT(google-explicit-constructor)
 
-        inline explicit kstring(std::string str) : mStr(std::move(str)) {};
+        inline explicit kstring(std::string str) : mStr(std::move(str)) {}
 
-        inline explicit operator const std::string &() const { return mStr; }
+        inline explicit operator const std::string &() const { return this->mStr; }
 
         /**
        * 比较字符串是否相等
@@ -46,12 +48,12 @@ namespace kitsune {
          * @return 自身引用
          */
         inline kstring &append(const std::string &str) {
-            mStr.append(str);
+            this->mStr.append(str);
             return *this;
         }
 
         inline kstring &append(const char sz[]) {
-            mStr.append(sz);
+            this->mStr.append(sz);
             return *this;
         }
 
@@ -60,29 +62,29 @@ namespace kitsune {
          * @param str string
          * @return index
          */
-        [[nodiscard]] inline size_t find(const std::string &str) const { return mStr.find(str); }
+        [[nodiscard]] inline size_t find(const std::string &str) const { return this->mStr.find(str); }
 
-        [[nodiscard]] inline size_t find(const kstring &kStr) const { return mStr.find(kStr.mStr); }
+        [[nodiscard]] inline size_t find(const kstring &kStr) const { return this->mStr.find(kStr.mStr); }
 
-        [[nodiscard]] inline size_t find(const char sz[]) const { return mStr.find(sz); }
+        [[nodiscard]] inline size_t find(const char sz[]) const { return this->mStr.find(sz); }
 
-        [[nodiscard]] inline size_t find(const char ch) const { return mStr.find(ch); }
+        [[nodiscard]] inline size_t find(const char ch) const { return this->mStr.find(ch); }
 
         /**
          * @return 字符串长度
          */
-        [[nodiscard]] inline size_t size() const { return mStr.size(); }
+        [[nodiscard]] inline size_t size() const { return this->mStr.size(); }
 
-        [[nodiscard]] inline size_t length() const { return mStr.length(); }
+        [[nodiscard]] inline size_t length() const { return this->mStr.length(); }
 
-        [[nodiscard]] inline bool isEmpty() const { return mStr.empty(); }
+        [[nodiscard]] inline bool isEmpty() const { return this->mStr.empty(); }
 
-        [[nodiscard]] inline bool isNotEmpty() const { return !mStr.empty(); }
+        [[nodiscard]] inline bool isNotEmpty() const { return !this->mStr.empty(); }
 
         /**
          * @return C风格字符串
          */
-        [[nodiscard]] inline const char *toCString() const { return mStr.c_str(); }
+        [[nodiscard]] inline const char *toCString() const { return this->mStr.c_str(); }
 
         /**
          * 截取字符串 并返回新的对象
@@ -91,7 +93,7 @@ namespace kitsune {
          * @return 截取完后的新字符串
          */
         [[nodiscard]] inline kstring substring(size_t pos = 0, size_t end = static_cast<size_t>(-1)) const {
-            return kstring(mStr.substr(pos, end));
+            return kstring(this->mStr.substr(pos, end));
         }
 
         /**
@@ -102,7 +104,7 @@ namespace kitsune {
          */
         [[nodiscard]] bool contains(const std::string &sub, bool ignoreCase = false) const;
 
-        [[nodiscard]]  inline bool contains(const char szSub[], bool ignoreCase = false) const {
+        [[nodiscard]] inline bool contains(const char szSub[], bool ignoreCase = false) const {
             return this->contains(std::string(szSub), ignoreCase);
         }
 
@@ -112,9 +114,9 @@ namespace kitsune {
          * @param ignoreCase 无视大小写
          * @return 是否相同
          */
-        [[nodiscard]]  bool startswith(const std::string &sub, bool ignoreCase = false) const;
+        [[nodiscard]] bool startswith(const std::string &sub, bool ignoreCase = false) const;
 
-        [[nodiscard]]  inline bool startswith(const char szSub[], bool ignoreCase = false) const {
+        [[nodiscard]] inline bool startswith(const char szSub[], bool ignoreCase = false) const {
             return this->startswith(std::string(szSub), ignoreCase);
         }
 
@@ -197,22 +199,16 @@ namespace kitsune {
         kstring &toUppercase();
 
         /**
-         * 反转字符串(不支持中文) 并返回自身引用
-         * @return 自身引用
-         */
-        kstring &reverse();
-
-        /**
          * 查询字符串出现的次数
          * @param sub string
          * @return 次数
          */
-        [[nodiscard]] size_t queryOccurrenceTimes(const std::string &sub) const;
+        [[nodiscard]] size_t queryOccurrenceTimes(const std::string &sub, bool ignoreCase = false) const;
     };
 
     /**
      * 往流内写入字符串
-     * @param os ostream
+     * @param wos wostream
      * @param ks kstring
      * @return ostream
      */
@@ -221,6 +217,7 @@ namespace kitsune {
     /**
      * 从流内读取字符串
      * @param is istream
+     * @param ks kstring
      * @return istream
      */
     inline std::istream &operator>>(std::istream &is, kstring &ks) { return is >> ks.mStr; }
