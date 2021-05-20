@@ -25,7 +25,7 @@ namespace kitsune {
 
         inline kstring(const char sz[]) : mStr(sz) {} // NOLINT(google-explicit-constructor)
 
-        inline explicit kstring(std::string str) : mStr(std::move(str)) {}
+        inline kstring(std::string str) : mStr(std::move(str)) {} // NOLINT(google-explicit-constructor)
 
         inline explicit operator const std::string &() const { return this->mStr; }
 
@@ -41,6 +41,13 @@ namespace kitsune {
         [[nodiscard]] inline bool operator==(const std::string &str) const { return this->equals(str); }
 
         [[nodiscard]] inline bool operator==(const char sz[]) const { return this->equals(sz); }
+
+        inline kstring &operator=(const std::string &s) {
+            this->mStr = s;
+            return *this;
+        }
+
+        inline kstring &operator=(const kstring &s) = default;
 
         /**
          * 拼接字符串
