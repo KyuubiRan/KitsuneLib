@@ -146,17 +146,20 @@ namespace kitsune {
          * @return 自身引用
          */
         inline kstring &replace(const std::string &ori, const std::string &sub) {
-            this->mStr.replace(this->mStr.find(ori), ori.size(), sub);
+            size_t idx = this->mStr.find(ori);
+            if (idx != static_cast<size_t>(-1)) this->mStr.replace(idx, ori.size(), sub);
             return *this;
         }
 
         inline kstring &replace(const std::string &ori, size_t n, const char szSub[]) {
-            this->mStr.replace(this->mStr.find(ori), n, szSub);
+            size_t idx = this->mStr.find(ori);
+            if (idx != static_cast<size_t>(-1)) this->mStr.replace(idx, n, szSub);
             return *this;
         }
 
         inline kstring &replace(const char szOri[], size_t n, const char szSub[]) {
-            this->mStr.replace(this->mStr.find(szOri), n, szSub);
+            size_t idx = this->mStr.find(szOri);
+            if (idx != static_cast<size_t>(-1)) this->mStr.replace(idx, n, szSub);
             return *this;
         }
 

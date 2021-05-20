@@ -79,6 +79,7 @@ size_t kstring::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
 }
 
 kstring &kstring::regexpReplace(const string &needReplacePart, size_t bufSize, const char format[], ...) {
+    if (!this->contains(needReplacePart)) return *this;
     char buf[bufSize];
     va_list args;
     va_start(args, format);
