@@ -94,22 +94,18 @@ bool kitsune::UpPrivilege() {
     TOKEN_PRIVILEGES tps;
     LUID luid;
     bool result;
-
     result = OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken);
     if (!result) {
         return false;
     }
-
     result = LookupPrivilegeValue(nullptr, SE_DEBUG_NAME, &luid);
     if (!result) {
         CloseHandle(hToken);
         return false;
     }
-
     tps.Privileges[0].Luid = luid;
     tps.PrivilegeCount = 1;
     tps.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
-
     result = AdjustTokenPrivileges(hToken, FALSE, &tps, sizeof tps, nullptr, nullptr);
     CloseHandle(hToken);
     return result;
@@ -124,6 +120,22 @@ bool kitsune::KillProcess(DWORD pid, int exitCode) {
 
 bool kitsune::KillProcessByName(const std::string &procName, int exitCode) {
     DWORD pid = GetProcessPidByName(procName);
-    if (!pid)return false;
-    KillProcess(pid, exitCode);
+    if (!pid) return false;
+    return KillProcess(pid, exitCode);
+}
+
+bool kitsune::EnumProcessEntry32(vector<PROCESSENTRY32> &vPe32) {
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (INVALID_HANDLE_VALUE == hSnapshot) return false;
+    PROCESSENTRY32 pe;
+    pe.dwSize = sizeof(pe);
+    if (!Process32First(hSnapshot, &pe)) {
+        CloseHandle(hSnapshot);
+        return false;
+    }
+    do {
+        vPe32.push_back(pe);
+    } while (Process32Next(hSnapshot, &pe));
+    CloseHandle(hSnapshot);
+    return true;
 }

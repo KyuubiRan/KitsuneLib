@@ -9,6 +9,7 @@
 
 #include "TypeDef/TypeDef.h"
 #include <windows.h>
+#include <tlhelp32.h>
 #include <vector>
 #include <iostream>
 
@@ -77,6 +78,13 @@ namespace kitsune {
      * @return 是否成功
      */
     bool KillProcessByName(const std::string& procName, int exitCode = 0);
+
+    /**
+     * 枚举PROCESSENTRY32信息
+     * @param vPe32 PROCESSENTRY32向量
+     * @return 是否成功
+     */
+    bool EnumProcessEntry32(std::vector<PROCESSENTRY32> &vPe32);
 }
 #else
 #error "OS NOT SUPPORTED!"
