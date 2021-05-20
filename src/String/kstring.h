@@ -161,9 +161,18 @@ namespace kitsune {
         }
 
         inline kstring &replace(const char szOri[], const std::string &sub) {
-            this->mStr.replace(this->mStr.find(szOri), sub.size(), sub);
-            return *this;
+            return this->replace(std::string(szOri), sub);
         }
+
+        /**
+         * 正则表达式替换字符串的部分内容
+         * @param needReplacePart 需要替换的字符串
+         * @paran bufSize buf大小
+         * @param format 格式
+         * @param ... 参数
+         * @return 自身引用
+         */
+        kstring &regexpReplace(const std::string &needReplacePart, size_t bufSize, const char format[], ...);
 
         /**
          * 从指定位置开始替换字符串的内容

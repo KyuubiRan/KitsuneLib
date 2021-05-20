@@ -6,6 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include <cstdarg>
 
 using std::string;
 using namespace kitsune;
@@ -76,3 +77,13 @@ size_t kstring::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
     }
     return result;
 }
+
+kstring &kstring::regexpReplace(const string &needReplacePart, size_t bufSize, const char format[], ...) {
+    char buf[bufSize];
+    va_list args;
+    va_start(args, format);
+    vsprintf(buf, format, args);
+    va_end(args);
+    return this->replace(needReplacePart, buf);
+}
+

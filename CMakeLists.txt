@@ -21,5 +21,5 @@ add_library(KitsuneLib
         src/Common/TypeDef/TypeDef.h
         src/WinProcess/WinProcess.h src/WinProcess/WinProcess.cpp
         src/String/StringUtil.h src/String/StringUtil.cpp src/String/kstring.cpp src/String/kstring.h
-        #src/Time/DateFormat.h src/Time/DateFormat.cpp
+        src/Time/DateFormat.h src/Time/DateFormat.cpp
         )
