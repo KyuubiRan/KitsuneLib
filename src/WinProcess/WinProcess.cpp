@@ -4,7 +4,6 @@
 
 #include "WinProcess.h"
 #include <psapi.h>
-#include <tlhelp32.h>
 #include <tchar.h>
 
 using namespace kitsune;

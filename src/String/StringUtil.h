@@ -6,9 +6,6 @@
 #define KITSUNELIB_STRINGUTIL_H
 
 #include <string>
-#include <tchar.h>
-#include <cwchar>
-#include <cctype>
 
 namespace kitsune {
     /**

@@ -7,8 +7,6 @@
 
 #include <string>
 #include <bits/move.h>
-#include <locale>
-#include <codecvt>
 
 namespace kitsune {
 

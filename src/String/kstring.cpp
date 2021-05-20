@@ -3,9 +3,6 @@
 //
 
 #include "kstring.h"
-#include <string>
-#include <algorithm>
-#include <cctype>
 #include <cstdarg>
 
 using std::string;

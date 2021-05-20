@@ -8,7 +8,7 @@ using std::string;
 
 string &kitsune::ToLowercase(string &str) {
     for (auto &c : str) {
-        c = std::tolower(c);
+        c = std::tolower(c); // NOLINT(cppcoreguidelines-narrowing-conversions)
     }
     return str;
 }
@@ -16,14 +16,14 @@ string &kitsune::ToLowercase(string &str) {
 string kitsune::ToLower(const string &str) {
     string s1 = str;
     for (auto &c : s1) {
-        c = tolower(c);
+        c = std::tolower(c); // NOLINT(cppcoreguidelines-narrowing-conversions)
     }
     return s1;
 }
 
 string &kitsune::ToUppercase(string &str) {
     for (auto &item : str) {
-        item = std::toupper(item);
+        item = std::toupper(item); // NOLINT(cppcoreguidelines-narrowing-conversions)
     }
     return str;
 }
@@ -31,7 +31,7 @@ string &kitsune::ToUppercase(string &str) {
 string kitsune::ToUpper(const string &str) {
     string s1 = str;
     for (auto &c : s1) {
-        c = toupper(c);
+        c = std::toupper(c); // NOLINT(cppcoreguidelines-narrowing-conversions)
     }
     return s1;
 }

@@ -3,11 +3,8 @@
 //
 
 #include "DateFormat.h"
-#include "../String/kstring.h"
+#include "kstring.h"
 
-using std::chrono::system_clock;
-using std::chrono::milliseconds;
-using std::chrono::seconds;
 using std::string;
 using std::tm;
 

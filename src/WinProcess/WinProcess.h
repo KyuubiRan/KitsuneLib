@@ -77,7 +77,7 @@ namespace kitsune {
      * @param exitCode 退出id
      * @return 是否成功
      */
-    bool KillProcessByName(const std::string& procName, int exitCode = 0);
+    bool KillProcessByName(const std::string &procName, int exitCode = 0);
 
     /**
      * 枚举PROCESSENTRY32信息
