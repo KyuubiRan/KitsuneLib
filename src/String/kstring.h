@@ -166,14 +166,23 @@ namespace kitsune {
         }
 
         /**
-         * 正则表达式替换字符串的部分内容
+         * 使用sprintf替换字符串的部分内容
          * @param needReplacePart 需要替换的字符串
          * @paran bufSize buf大小
          * @param format 格式
          * @param ... 参数
          * @return 自身引用
          */
-        kstring &regexpReplace(const std::string &needReplacePart, size_t bufSize, const char format[], ...);
+        kstring &sReplace(const std::string &needReplacePart, size_t bufSize, const char *format, ...);
+
+        /**
+         * 使用sprintf格式化整个字符串
+         * @param bufSize buf大小
+         * @param format 格式
+         * @param ... 参数
+         * @return 自身引用
+         */
+        kstring &sprintf(size_t bufSize, const char *format, ...);
 
         /**
          * 从指定位置开始替换字符串的内容

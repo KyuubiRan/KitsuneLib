@@ -75,13 +75,26 @@ size_t kstring::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
     return result;
 }
 
-kstring &kstring::regexpReplace(const string &needReplacePart, size_t bufSize, const char format[], ...) {
+kstring &kstring::sReplace(const string &needReplacePart, size_t bufSize, const char *format, ...) {
     if (!this->contains(needReplacePart)) return *this;
-    char buf[bufSize];
+    char *buf = new char[bufSize];
     va_list args;
     va_start(args, format);
     vsprintf(buf, format, args);
     va_end(args);
-    return this->replace(needReplacePart, buf);
+    this->replace(needReplacePart, buf);
+    delete[] buf;
+    return *this;
+}
+
+kstring &kstring::sprintf(size_t bufSize, const char *format, ...) {
+    char *buf = new char[bufSize];
+    va_list args;
+    va_start(args, format);
+    vsprintf(buf, format, args);
+    va_end(args);
+    this->mStr = buf;
+    delete[] buf;
+    return *this;
 }
 
