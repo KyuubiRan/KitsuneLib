@@ -10,7 +10,8 @@
 
 namespace kitsune {
     /**
-     * 格式                   eg: 2021/05/20 21:15:12
+     * 格式                  eg: 2021/05/20 21:15:12
+     *                           yyyy/MM/dd HH:mm:ss
      * y - 年                    yyyy    2021 | yy 21
      * M - 月                    MM      05
      * d - 日                    dd      20
