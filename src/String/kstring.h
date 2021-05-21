@@ -28,10 +28,10 @@ namespace kitsune {
         inline explicit operator const std::string &() const { return this->mStr; }
 
         /**
-       * 比较字符串是否相等
-       * @param str string
-       * @return 是否相等
-       */
+         * 比较字符串是否相等
+         * @param str string
+         * @return 是否相等
+         */
         [[nodiscard]] inline bool equals(const std::string &str) const { return this->mStr == str; }
 
         [[nodiscard]] inline bool equals(const char sz[]) const { return this->mStr == sz; }
@@ -195,6 +195,13 @@ namespace kitsune {
             return *this;
         }
 
+        /**
+         * 从指定位置开始替换字符串的内容
+         * @param pos 起始位置
+         * @param n 大小
+         * @param szSub 替换成
+         * @return 自身引用
+         */
         inline kstring &replace(size_t pos, size_t n, const char szSub[]) {
             this->mStr.replace(pos, n, szSub);
             return *this;
@@ -219,9 +226,9 @@ namespace kitsune {
         kstring &toLowercase();
 
         /**
-        * 将自身字符串内容转化为大写 并返回自身引用
-        * @return 自身引用
-        */
+         * 将自身字符串内容转化为大写 并返回自身引用
+         * @return 自身引用
+         */
         kstring &toUppercase();
 
         /**
