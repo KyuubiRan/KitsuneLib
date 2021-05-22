@@ -9,6 +9,7 @@
 #include <bits/move.h>
 
 namespace kitsune {
+    constexpr size_t INVALID_SIZE = static_cast<size_t>(-1);
 
     class kstring {
     private:
@@ -97,7 +98,7 @@ namespace kitsune {
          * @param end 结束位置
          * @return 截取完后的新字符串
          */
-        [[nodiscard]] inline kstring substring(size_t pos = 0, size_t end = static_cast<size_t>(-1)) const {
+        [[nodiscard]] inline kstring substring(size_t pos = 0, size_t end = INVALID_SIZE) const {
             return kstring(this->mStr.substr(pos, end));
         }
 
@@ -145,19 +146,19 @@ namespace kitsune {
          */
         inline kstring &replace(const std::string &ori, const std::string &sub) {
             size_t idx = this->mStr.find(ori);
-            if (idx != static_cast<size_t>(-1)) this->mStr.replace(idx, ori.size(), sub);
+            if (idx != INVALID_SIZE) this->mStr.replace(idx, ori.size(), sub);
             return *this;
         }
 
         inline kstring &replace(const std::string &ori, size_t n, const char szSub[]) {
             size_t idx = this->mStr.find(ori);
-            if (idx != static_cast<size_t>(-1)) this->mStr.replace(idx, n, szSub);
+            if (idx != INVALID_SIZE) this->mStr.replace(idx, n, szSub);
             return *this;
         }
 
         inline kstring &replace(const char szOri[], size_t n, const char szSub[]) {
             size_t idx = this->mStr.find(szOri);
-            if (idx != static_cast<size_t>(-1)) this->mStr.replace(idx, n, szSub);
+            if (idx != INVALID_SIZE) this->mStr.replace(idx, n, szSub);
             return *this;
         }
 

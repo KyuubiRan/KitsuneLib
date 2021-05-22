@@ -66,7 +66,7 @@ size_t kstring::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
     }
     size_t result = 0;
     size_t index = s1.find(s2);
-    while (index != static_cast<size_t>(-1)) {
+    while (index != INVALID_SIZE) {
         ++result;
         if (index + s2.size() > s1.size()) return result;
         s1 = s1.substr(index + s2.size());
