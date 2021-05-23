@@ -10,8 +10,7 @@
 
 namespace kitsune {
     /**
-     * 格式                  eg: 2021/05/20 21:15:12
-     *                           yyyy/MM/dd HH:mm:ss
+     * 格式                 eg: 2021/05/20 21:15:12 (yyyy/MM/dd HH:mm:ss)
      * y - 年                    yyyy    2021 | yy 21
      * M - 月                    MM      05
      * d - 日                    dd      20
@@ -19,6 +18,10 @@ namespace kitsune {
      * h - 12小时制 小时          hh      09
      * m - 分                    mm      15
      * s - 秒                    ss      12
+     *
+     * 注意:当月、日、时、分、秒的格式为一个字母(如 yyyy/M/d H:m:s)时
+     * 如果为一位数 则显示一位数 如果为两位数 则显示两位数
+     * eg: 2021/5/21 16:8:31
      */
 
     /**
@@ -68,10 +71,10 @@ namespace kitsune {
     /**
      * 获取格式化后的时间
      * @param fmt 格式 如yyyy-MM-dd HH:mm:ss
-     * @param timeinfo tm时间信息
+     * @param timeInfo 时间信息
      * @return 格式化后的字符串
      */
-    [[nodiscard]] std::string GetFormatDate(const std::string &fmt, const std::tm &timeinfo);
+    [[nodiscard]] std::string GetFormatDate(const std::string &fmt, const std::tm &timeInfo);
 
     /**
      * 获取格式化后的时间
@@ -91,6 +94,24 @@ namespace kitsune {
      */
     [[nodiscard]] inline std::string GetFormatDate(const std::string &fmt, const time_t sec) {
         return GetFormatDate(fmt, SecondsToTm(sec));
+    }
+
+    /**
+     * 获取简单的格式化时间
+     * @param sec
+     * @return yyyy-MM-dd HH:mm:ss格式的时间
+     */
+    [[nodiscard]] inline std::string GetSimpleFormatDate(const time_t sec) {
+        return GetFormatDate("yyyy-MM-dd HH:mm:ss", SecondsToTm(sec));
+    }
+
+    /**
+     * 获取简单的格式化时间
+     * @param timeInfo 时间信息
+     * @return yyyy-MM-dd HH:mm:ss格式的时间
+     */
+    [[nodiscard]] inline std::string GetSimpleFormatDate(const std::tm timeInfo) {
+        return GetFormatDate("yyyy-MM-dd HH:mm:ss", timeInfo);
     }
 }
 

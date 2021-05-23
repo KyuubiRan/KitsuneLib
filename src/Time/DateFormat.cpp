@@ -8,15 +8,21 @@
 using std::string;
 using std::tm;
 
-string kitsune::GetFormatDate(const string &fmt, const tm &timeinfo) {
+string kitsune::GetFormatDate(const string &fmt, const tm &timeInfo) {
     kstring sFmt = fmt;
-    sFmt.sReplace("yyyy", 16, "%04d", timeinfo.tm_year + 1900)
-            .sReplace("yy", 16, "%02d", timeinfo.tm_year % 100)
-            .sReplace("MM", 16, "%02d", timeinfo.tm_mon + 1)
-            .sReplace("dd", 16, "%02d", timeinfo.tm_mday)
-            .sReplace("HH", 16, "%02d", timeinfo.tm_hour)
-            .sReplace("hh", 16, "%02d", timeinfo.tm_hour > 12 ? timeinfo.tm_hour - 12 : timeinfo.tm_hour)
-            .sReplace("mm", 16, "%02d", timeinfo.tm_min)
-            .sReplace("ss", 16, "%02d", timeinfo.tm_sec);
+    sFmt.sReplace("yyyy", 16, "%04d", timeInfo.tm_year + 1900)
+            .sReplace("yy", 16, "%02d", timeInfo.tm_year % 100)
+            .sReplace("MM", 16, "%02d", timeInfo.tm_mon + 1)
+            .sReplace("M", 16, "%d", timeInfo.tm_mon + 1)
+            .sReplace("dd", 16, "%02d", timeInfo.tm_mday)
+            .sReplace("d", 16, "%d", timeInfo.tm_mday)
+            .sReplace("HH", 16, "%02d", timeInfo.tm_hour)
+            .sReplace("H", 16, "%d", timeInfo.tm_hour)
+            .sReplace("hh", 16, "%02d", timeInfo.tm_hour > 12 ? timeInfo.tm_hour - 12 : timeInfo.tm_hour)
+            .sReplace("h", 16, "%d", timeInfo.tm_hour > 12 ? timeInfo.tm_hour - 12 : timeInfo.tm_hour)
+            .sReplace("mm", 16, "%02d", timeInfo.tm_min)
+            .sReplace("m", 16, "%d", timeInfo.tm_min)
+            .sReplace("ss", 16, "%02d", timeInfo.tm_sec)
+            .sReplace("s", 16, "%d", timeInfo.tm_sec);
     return string(sFmt);
 }
