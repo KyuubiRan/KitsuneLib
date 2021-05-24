@@ -243,7 +243,7 @@ namespace kitsune {
 
     /**
      * 往流内写入字符串
-     * @param wos wostream
+     * @param os ostream
      * @param ks kstring
      * @return ostream
      */
