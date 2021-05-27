@@ -7,6 +7,7 @@
 
 #include <string>
 #include <bits/move.h>
+#include <vector>
 
 namespace kitsune {
     constexpr size_t INVALID_SIZE = static_cast<size_t>(-1);
@@ -26,7 +27,7 @@ namespace kitsune {
 
         inline kstring(std::string str) : mStr(std::move(str)) {} // NOLINT(google-explicit-constructor)
 
-        inline explicit operator const std::string &() const { return this->mStr; }
+        inline operator const std::string &() const { return this->mStr; } // NOLINT(google-explicit-constructor)
 
         /**
          * 比较字符串是否相等
@@ -239,6 +240,14 @@ namespace kitsune {
          * @return 次数
          */
         [[nodiscard]] size_t queryOccurrenceTimes(const std::string &sub, bool ignoreCase = false) const;
+
+        /**
+         * 分割字符串
+         * @param delim 分隔符
+         * @param vKstr kstring向量
+         * @return kstring向量
+         */
+        std::vector<kstring> &splitString(const std::string &delim, std::vector<kstring> &vKstr);
     };
 
     /**

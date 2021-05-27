@@ -4,6 +4,7 @@
 
 #include "kstring.h"
 #include <cstdarg>
+#include <cstring>
 
 using std::string;
 using namespace kitsune;
@@ -98,3 +99,14 @@ kstring &kstring::sprintf(size_t bufSize, const char *format, ...) {
     return *this;
 }
 
+std::vector<kstring> &kstring::splitString(const string &delim, std::vector<kstring> &vKstr) {
+    if (this->isEmpty() || delim.empty()) return vKstr;
+    string tmp = *this;
+    char *p = std::strtok(const_cast<char *>(tmp.c_str()), delim.c_str());
+    while (p) {
+        tmp = p;
+        vKstr.emplace_back(tmp);
+        p = std::strtok(nullptr, delim.c_str());
+    }
+    return vKstr;
+}
