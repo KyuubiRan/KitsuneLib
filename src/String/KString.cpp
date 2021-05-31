@@ -112,5 +112,6 @@ std::vector<KString> &KString::splitString(const string &delim, std::vector<KStr
         tmp = tmp.substring(idx + delim.size());
         idx = tmp.find(delim);
     } while (idx != INVALID_SIZE);
+    vKstr.push_back(tmp);
     return vKstr;
 }
