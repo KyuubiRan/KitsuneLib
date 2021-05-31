@@ -101,12 +101,16 @@ KString &KString::sprintf(size_t bufSize, const char *format, ...) {
 
 std::vector<KString> &KString::splitString(const string &delim, std::vector<KString> &vKstr) {
     if (this->isEmpty() || delim.empty()) return vKstr;
-    string tmp = *this;
-    char *p = std::strtok(const_cast<char *>(tmp.c_str()), delim.c_str());
-    while (p) {
-        tmp = p;
-        vKstr.emplace_back(tmp);
-        p = std::strtok(nullptr, delim.c_str());
+    KString tmp = *this;
+    size_t idx = tmp.find(delim);
+    if (idx == INVALID_SIZE) {
+        vKstr.push_back(tmp);
+        return vKstr;
     }
+    do {
+        vKstr.push_back(tmp.substring(0, idx));
+        tmp = tmp.substring(idx + delim.size());
+        idx = tmp.find(delim);
+    } while (idx != INVALID_SIZE);
     return vKstr;
 }
