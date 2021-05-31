@@ -3,13 +3,13 @@
 //
 
 #include "DateFormat.h"
-#include "kstring.h"
+#include "KString.h"
 
 using std::string;
 using std::tm;
 
 string kitsune::GetFormatDate(const string &fmt, const tm &timeInfo) {
-    kstring sFmt = fmt;
+    KString sFmt = fmt;
     sFmt.sReplace("yyyy", 16, "%04d", timeInfo.tm_year + 1900)
             .sReplace("yy", 16, "%02d", timeInfo.tm_year % 100)
             .sReplace("MM", 16, "%02d", timeInfo.tm_mon + 1)

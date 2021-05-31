@@ -2,36 +2,36 @@
 // Created by KyuubiRan on 2021/5/16.
 //
 
-#include "kstring.h"
+#include "KString.h"
 #include <cstdarg>
 #include <cstring>
 
 using std::string;
 using namespace kitsune;
 
-kstring kstring::toLower() const {
-    kstring tmp = *this;
+KString KString::toLower() const {
+    KString tmp = *this;
     for (auto &c : tmp.mStr) { c = std::tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
     return tmp;
 }
 
-kstring kstring::toUpper() const {
-    kstring tmp = *this;
+KString KString::toUpper() const {
+    KString tmp = *this;
     for (auto &c :tmp.mStr) { c = std::toupper(c); }// NOLINT(cppcoreguidelines-narrowing-conversions)
     return tmp;
 }
 
-kstring &kstring::toLowercase() {
+KString &KString::toLowercase() {
     for (auto &c : this->mStr) { c = std::tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
     return *this;
 }
 
-kstring &kstring::toUppercase() {
+KString &KString::toUppercase() {
     for (auto &c : this->mStr) { c = std::toupper(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
     return *this;
 }
 
-bool kstring::contains(const string &sub, bool ignoreCase) const {
+bool KString::contains(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
@@ -40,7 +40,7 @@ bool kstring::contains(const string &sub, bool ignoreCase) const {
     return this->find(sub) != static_cast<size_t >(-1);
 }
 
-bool kstring::startswith(const string &sub, bool ignoreCase) const {
+bool KString::startswith(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
@@ -49,7 +49,7 @@ bool kstring::startswith(const string &sub, bool ignoreCase) const {
     return this->substring(0, sub.size()) == sub;
 }
 
-bool kstring::endswith(const string &sub, bool ignoreCase) const {
+bool KString::endswith(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
@@ -58,7 +58,7 @@ bool kstring::endswith(const string &sub, bool ignoreCase) const {
     return this->substring(this->size() - sub.size()) == sub;
 }
 
-size_t kstring::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
+size_t KString::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
     if (this->isEmpty() || sub.empty()) return 0;
     string s1 = this->mStr, s2 = sub;
     if (ignoreCase) {
@@ -76,7 +76,7 @@ size_t kstring::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
     return result;
 }
 
-kstring &kstring::sReplace(const string &needReplacePart, size_t bufSize, const char *format, ...) {
+KString &KString::sReplace(const string &needReplacePart, size_t bufSize, const char *format, ...) {
     if (!this->contains(needReplacePart)) return *this;
     char *buf = new char[bufSize];
     va_list args;
@@ -88,7 +88,7 @@ kstring &kstring::sReplace(const string &needReplacePart, size_t bufSize, const 
     return *this;
 }
 
-kstring &kstring::sprintf(size_t bufSize, const char *format, ...) {
+KString &KString::sprintf(size_t bufSize, const char *format, ...) {
     char *buf = new char[bufSize];
     va_list args;
     va_start(args, format);
@@ -99,7 +99,7 @@ kstring &kstring::sprintf(size_t bufSize, const char *format, ...) {
     return *this;
 }
 
-std::vector<kstring> &kstring::splitString(const string &delim, std::vector<kstring> &vKstr) {
+std::vector<KString> &KString::splitString(const string &delim, std::vector<KString> &vKstr) {
     if (this->isEmpty() || delim.empty()) return vKstr;
     string tmp = *this;
     char *p = std::strtok(const_cast<char *>(tmp.c_str()), delim.c_str());

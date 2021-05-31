@@ -12,20 +12,20 @@
 namespace kitsune {
     constexpr size_t INVALID_SIZE = static_cast<size_t>(-1);
 
-    class kstring {
+    class KString {
     private:
         std::string mStr;
 
-        friend inline std::ostream &operator<<(std::ostream &os, const kstring &ks);
+        friend inline std::ostream &operator<<(std::ostream &os, const KString &ks);
 
-        friend inline std::istream &operator>>(std::istream &is, kstring &ks);
+        friend inline std::istream &operator>>(std::istream &is, KString &ks);
 
     public:
-        inline kstring() : mStr() {}
+        inline KString() : mStr() {}
 
-        inline kstring(const char sz[]) : mStr(sz) {} // NOLINT(google-explicit-constructor)
+        inline KString(const char sz[]) : mStr(sz) {} // NOLINT(google-explicit-constructor)
 
-        inline kstring(std::string str) : mStr(std::move(str)) {} // NOLINT(google-explicit-constructor)
+        inline KString(std::string str) : mStr(std::move(str)) {} // NOLINT(google-explicit-constructor)
 
         inline operator const std::string &() const { return this->mStr; } // NOLINT(google-explicit-constructor)
 
@@ -42,24 +42,24 @@ namespace kitsune {
 
         [[nodiscard]] inline bool operator==(const char sz[]) const { return this->equals(sz); }
 
-        inline kstring &operator=(const std::string &s) {
+        inline KString &operator=(const std::string &s) {
             this->mStr = s;
             return *this;
         }
 
-        inline kstring &operator=(const kstring &s) = default;
+        inline KString &operator=(const KString &s) = default;
 
         /**
          * 拼接字符串
          * @param str string
          * @return 自身引用
          */
-        inline kstring &append(const std::string &str) {
+        inline KString &append(const std::string &str) {
             this->mStr.append(str);
             return *this;
         }
 
-        inline kstring &append(const char sz[]) {
+        inline KString &append(const char sz[]) {
             this->mStr.append(sz);
             return *this;
         }
@@ -71,7 +71,7 @@ namespace kitsune {
          */
         [[nodiscard]] inline size_t find(const std::string &str) const { return this->mStr.find(str); }
 
-        [[nodiscard]] inline size_t find(const kstring &kStr) const { return this->mStr.find(kStr.mStr); }
+        [[nodiscard]] inline size_t find(const KString &kStr) const { return this->mStr.find(kStr.mStr); }
 
         [[nodiscard]] inline size_t find(const char sz[]) const { return this->mStr.find(sz); }
 
@@ -99,8 +99,8 @@ namespace kitsune {
          * @param end 结束位置
          * @return 截取完后的新字符串
          */
-        [[nodiscard]] inline kstring substring(size_t pos = 0, size_t end = INVALID_SIZE) const {
-            return kstring(this->mStr.substr(pos, end));
+        [[nodiscard]] inline KString substring(size_t pos = 0, size_t end = INVALID_SIZE) const {
+            return KString(this->mStr.substr(pos, end));
         }
 
         /**
@@ -145,25 +145,25 @@ namespace kitsune {
          * @param sub 替换成
          * @return 自身引用
          */
-        inline kstring &replace(const std::string &ori, const std::string &sub) {
+        inline KString &replace(const std::string &ori, const std::string &sub) {
             size_t idx = this->mStr.find(ori);
             if (idx != INVALID_SIZE) this->mStr.replace(idx, ori.size(), sub);
             return *this;
         }
 
-        inline kstring &replace(const std::string &ori, size_t n, const char szSub[]) {
+        inline KString &replace(const std::string &ori, size_t n, const char szSub[]) {
             size_t idx = this->mStr.find(ori);
             if (idx != INVALID_SIZE) this->mStr.replace(idx, n, szSub);
             return *this;
         }
 
-        inline kstring &replace(const char szOri[], size_t n, const char szSub[]) {
+        inline KString &replace(const char szOri[], size_t n, const char szSub[]) {
             size_t idx = this->mStr.find(szOri);
             if (idx != INVALID_SIZE) this->mStr.replace(idx, n, szSub);
             return *this;
         }
 
-        inline kstring &replace(const char szOri[], const std::string &sub) {
+        inline KString &replace(const char szOri[], const std::string &sub) {
             return this->replace(std::string(szOri), sub);
         }
 
@@ -175,7 +175,7 @@ namespace kitsune {
          * @param ... 参数
          * @return 自身引用
          */
-        kstring &sReplace(const std::string &needReplacePart, size_t bufSize, const char *format, ...);
+        KString &sReplace(const std::string &needReplacePart, size_t bufSize, const char *format, ...);
 
         /**
          * 使用sprintf格式化整个字符串
@@ -184,7 +184,7 @@ namespace kitsune {
          * @param ... 参数
          * @return 自身引用
          */
-        kstring &sprintf(size_t bufSize, const char *format, ...);
+        KString &sprintf(size_t bufSize, const char *format, ...);
 
         /**
          * 从指定位置开始替换字符串的内容
@@ -192,7 +192,7 @@ namespace kitsune {
          * @param sub 替换成
          * @return 自身引用
          */
-        inline kstring &replace(size_t pos, const std::string &sub) {
+        inline KString &replace(size_t pos, const std::string &sub) {
             this->mStr.replace(pos, sub.size(), sub);
             return *this;
         }
@@ -204,34 +204,34 @@ namespace kitsune {
          * @param szSub 替换成
          * @return 自身引用
          */
-        inline kstring &replace(size_t pos, size_t n, const char szSub[]) {
+        inline KString &replace(size_t pos, size_t n, const char szSub[]) {
             this->mStr.replace(pos, n, szSub);
             return *this;
         }
 
         /**
          * 返回一个新的对象 并将字符串内容转化为小写
-         * @return kstring
+         * @return KString
          */
-        [[nodiscard]] kstring toLower() const;
+        [[nodiscard]] KString toLower() const;
 
         /**
          * 返回一个新的对象 并将字符串内容转化为大写
-         * @return kstring
+         * @return KString
          */
-        [[nodiscard]] kstring toUpper() const;
+        [[nodiscard]] KString toUpper() const;
 
         /**
          * 将自身字符串内容转化为小写 并返回自身引用
          * @return 自身引用
          */
-        kstring &toLowercase();
+        KString &toLowercase();
 
         /**
          * 将自身字符串内容转化为大写 并返回自身引用
          * @return 自身引用
          */
-        kstring &toUppercase();
+        KString &toUppercase();
 
         /**
          * 查询字符串出现的次数
@@ -247,24 +247,24 @@ namespace kitsune {
          * @param vKstr kstring向量
          * @return kstring向量
          */
-        std::vector<kstring> &splitString(const std::string &delim, std::vector<kstring> &vKstr);
+        std::vector<KString> &splitString(const std::string &delim, std::vector<KString> &vKstr);
     };
 
     /**
      * 往流内写入字符串
      * @param os ostream
-     * @param ks kstring
+     * @param ks KString
      * @return ostream
      */
-    inline std::ostream &operator<<(std::ostream &os, const kstring &ks) { return os << ks.mStr; }
+    inline std::ostream &operator<<(std::ostream &os, const KString &ks) { return os << ks.mStr; }
 
     /**
      * 从流内读取字符串
      * @param is istream
-     * @param ks kstring
+     * @param ks KString
      * @return istream
      */
-    inline std::istream &operator>>(std::istream &is, kstring &ks) { return is >> ks.mStr; }
+    inline std::istream &operator>>(std::istream &is, KString &ks) { return is >> ks.mStr; }
 }
 
 #endif //KITSUNELIB_KSTRING_H
