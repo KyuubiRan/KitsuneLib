@@ -20,7 +20,8 @@ endif ()
 
 add_library(KitsuneLib
         src/Common/TypeDef/TypeDef.h
-        src/WinUtils/WinProcess.h src/WinUtils/WinProcess.cpp
+        src/WinUtils/WinProcess.h src/WinUtils/WinProcess.cpp src/WinUtils/WinAdmin.h src/WinUtils/WinAdmin.cpp
         src/String/StringUtil.h src/String/StringUtil.cpp src/String/KString.cpp src/String/KString.h
         src/Time/DateFormat.h src/Time/DateFormat.cpp
-        src/Random/Random.h src/Random/Random.cpp src/WinUtils/WinAdmin.h)
+        src/Random/Random.h src/Random/Random.cpp
+        )
