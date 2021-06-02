@@ -5,8 +5,10 @@
 #include "KString.h"
 #include <cstdarg>
 #include <cstring>
+#include <fstream>
 
 using std::string;
+using std::istreambuf_iterator;
 using namespace kitsune;
 
 KString KString::toLower() const {
@@ -114,4 +116,9 @@ std::vector<KString> &KString::splitString(const string &delim, std::vector<KStr
     } while (idx != INVALID_SIZE);
     vKstr.push_back(tmp);
     return vKstr;
+}
+
+KString KString::ReadText(std::ifstream &ifs) {
+    string str((istreambuf_iterator<char>(ifs)), istreambuf_iterator<char>());
+    return KString(str);
 }

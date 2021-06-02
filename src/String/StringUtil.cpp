@@ -3,6 +3,7 @@
 //
 
 #include "StringUtil.h"
+#include <fstream>
 
 using std::string;
 
@@ -80,5 +81,9 @@ size_t kitsune::QueryOccurrenceTimes(const string &ori, const string &sub, bool 
         index = s1.find(s2);
     }
     return result;
+}
+
+std::string kitsune::ReadText(std::ifstream &ifs) {
+    return string((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
 }
 

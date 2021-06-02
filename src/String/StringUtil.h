@@ -71,6 +71,13 @@ namespace kitsune {
      * @return 出现次数
      */
     size_t QueryOccurrenceTimes(const std::string &ori, const std::string &sub, bool ignoreCase = false);
+
+    /**
+     * 读取整个文件流中的字符 返回string对象
+     * @param ifs ifstream
+     * @return string对象
+     */
+    std::string ReadText(std::ifstream &ifs);
 }
 
 #endif //KITSUNELIB_STRINGUTIL_H

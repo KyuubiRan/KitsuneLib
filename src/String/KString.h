@@ -244,10 +244,17 @@ namespace kitsune {
         /**
          * 分割字符串
          * @param delim 分隔符
-         * @param vKstr kstring向量
-         * @return kstring向量
+         * @param vKstr KString向量
+         * @return KString向量
          */
         std::vector<KString> &splitString(const std::string &delim, std::vector<KString> &vKstr);
+
+        /**
+         * 读取整个文件流中的字符 返回KString对象
+         * @param ifs ifstream
+         * @return KString对象
+         */
+        static KString ReadText(std::ifstream &ifs);
     };
 
     /**
