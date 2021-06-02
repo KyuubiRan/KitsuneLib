@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(LIB_DIRS
         src/Common
-        src/WinProcess
+        src/WinUtils
         src/String
         src/Time
         src/Random
@@ -20,7 +20,7 @@ endif ()
 
 add_library(KitsuneLib
         src/Common/TypeDef/TypeDef.h
-        src/WinProcess/WinProcess.h src/WinProcess/WinProcess.cpp
+        src/WinUtils/WinProcess.h src/WinUtils/WinProcess.cpp
         src/String/StringUtil.h src/String/StringUtil.cpp src/String/KString.cpp src/String/KString.h
         src/Time/DateFormat.h src/Time/DateFormat.cpp
-        src/Random/Random.h src/Random/Random.cpp)
+        src/Random/Random.h src/Random/Random.cpp src/WinUtils/WinAdmin.h)

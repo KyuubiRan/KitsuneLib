@@ -5,7 +5,7 @@
 #ifndef KITSUNETOOLS_WINPROCESS_H
 #define KITSUNETOOLS_WINPROCESS_H
 
-#ifdef _WIN32
+#ifdef WIN32
 
 #include "TypeDef/TypeDef.h"
 #include <windows.h>
@@ -88,6 +88,6 @@ namespace kitsune {
 }
 #else
 #error "OS NOT SUPPORTED!"
-#endif //_WIN32
+#endif //WIN32
 
 #endif //KITSUNETOOLS_WINPROCESS_H
