@@ -47,6 +47,24 @@ namespace kitsune {
             return *this;
         }
 
+        [[nodiscard]] inline std::string::iterator begin() { return this->mStr.begin(); }
+
+        [[nodiscard]] inline std::string::iterator end() { return this->mStr.end(); }
+
+        [[nodiscard]] inline std::string::const_iterator cbegin() const noexcept { return this->mStr.cbegin(); }
+
+        [[nodiscard]] inline std::string::const_iterator cend() const noexcept { return this->mStr.cend(); }
+
+        [[nodiscard]] inline std::string::reverse_iterator rbegin() { return this->mStr.rbegin(); }
+
+        [[nodiscard]] inline std::string::reverse_iterator rend() { return this->mStr.rend(); }
+
+        [[nodiscard]] inline std::string::const_reverse_iterator
+        crbegin() const noexcept { return this->mStr.crbegin(); }
+
+        [[nodiscard]] inline std::string::const_reverse_iterator
+        crend() const noexcept { return this->mStr.crend(); }
+
         inline KString &operator=(const KString &s) = default;
 
         /**
