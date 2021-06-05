@@ -64,6 +64,51 @@ namespace kitsune {
             return *this;
         }
 
+        inline KString &append(char ch) {
+            this->mStr.append(std::to_string(ch));
+            return *this;
+        }
+
+        inline KString &append(short sh) {
+            this->mStr.append(std::to_string(sh));
+            return *this;
+        }
+
+        inline KString &append(int i) {
+            this->mStr.append(std::to_string(i));
+            return *this;
+        }
+
+        inline KString &append(unsigned ui) {
+            this->mStr.append(std::to_string(ui));
+            return *this;
+        }
+
+        inline KString &append(long long int ll) {
+            this->mStr.append(std::to_string(ll));
+            return *this;
+        }
+
+        inline KString &append(unsigned long long int ull) {
+            this->mStr.append(std::to_string(ull));
+            return *this;
+        }
+
+        inline KString &append(double d) {
+            this->mStr.append(std::to_string(d));
+            return *this;
+        }
+
+        inline KString &append(long double ld) {
+            this->mStr.append(std::to_string(ld));
+            return *this;
+        }
+
+        inline KString &append(float f) {
+            this->mStr.append(std::to_string(f));
+            return *this;
+        }
+
         /**
          * 查找字符串index
          * @param str string
