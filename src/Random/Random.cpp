@@ -43,3 +43,10 @@ vector<T> &kitsune::VectorRandomSort(vector<T> &v) {
     shuffle(v.begin(), v.end(), Gen());
     return v;
 }
+
+template<typename T>
+std::deque<T> &kitsune::DequeRandomSort(std::deque<T> &d) {
+    if (d.empty()) return d;
+    shuffle(d.begin(), d.end(), Gen());
+    return d;
+}

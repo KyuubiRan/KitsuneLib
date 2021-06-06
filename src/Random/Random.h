@@ -6,6 +6,7 @@
 #define KITSUNELIB_RANDOM_H
 
 #include <vector>
+#include <deque>
 
 namespace kitsune {
     /**
@@ -97,6 +98,15 @@ namespace kitsune {
      */
     template<typename T>
     std::vector<T> &VectorRandomSort(std::vector<T> &v);
+
+    /**
+     * 随机排列deque中的元素
+     * @tparam T 类型
+     * @param d deque
+     * @return deque自身
+     */
+    template<typename T>
+    std::deque<T> &DequeRandomSort(std::deque<T> &d);
 }
 
 #endif //KITSUNELIB_RANDOM_H
