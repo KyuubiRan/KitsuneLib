@@ -24,5 +24,5 @@ string kitsune::GetFormatDate(const string &fmt, const tm &timeInfo) {
             .sReplace("m", 16, "%d", timeInfo.tm_min)
             .sReplace("ss", 16, "%02d", timeInfo.tm_sec)
             .sReplace("s", 16, "%d", timeInfo.tm_sec);
-    return string(sFmt);
+    return sFmt;
 }
