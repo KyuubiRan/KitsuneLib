@@ -58,6 +58,10 @@ namespace kitsune {
 
         [[nodiscard]] inline bool operator>=(const char sz[]) const { return this->mStr >= sz; }
 
+        [[nodiscard]] inline bool operator!=(const std::string &str) const { return this->mStr != str; }
+
+        [[nodiscard]] inline bool operator!=(const char sz[]) const { return this->mStr != sz; }
+
         inline KString &operator=(const std::string &s) {
             this->mStr = s;
             return *this;
