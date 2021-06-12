@@ -30,9 +30,9 @@ namespace kitsune {
         inline operator const std::string &() const { return this->mStr; } // NOLINT(google-explicit-constructor)
 
         /**
-         * 比较字符串是否相等
+         * 比较字符串
          * @param str string
-         * @return 是否相等
+         * @return 结果
          */
         [[nodiscard]] inline bool equals(const std::string &str) const { return this->mStr == str; }
 
@@ -41,6 +41,22 @@ namespace kitsune {
         [[nodiscard]] inline bool operator==(const std::string &str) const { return this->equals(str); }
 
         [[nodiscard]] inline bool operator==(const char sz[]) const { return this->equals(sz); }
+
+        [[nodiscard]] inline bool operator<(const std::string &str) const { return this->mStr < str; }
+
+        [[nodiscard]] inline bool operator<=(const std::string &str) const { return this->mStr <= str; }
+
+        [[nodiscard]] inline bool operator<(const char sz[]) const { return this->mStr < sz; }
+
+        [[nodiscard]] inline bool operator<=(const char sz[]) const { return this->mStr <= sz; }
+
+        [[nodiscard]] inline bool operator>(const std::string &str) const { return this->mStr > str; }
+
+        [[nodiscard]] inline bool operator>=(const std::string &str) const { return this->mStr >= str; }
+
+        [[nodiscard]] inline bool operator>(const char sz[]) const { return this->mStr > sz; }
+
+        [[nodiscard]] inline bool operator>=(const char sz[]) const { return this->mStr >= sz; }
 
         inline KString &operator=(const std::string &s) {
             this->mStr = s;
