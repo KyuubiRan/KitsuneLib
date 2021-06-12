@@ -62,8 +62,38 @@ namespace kitsune {
 
         [[nodiscard]] inline bool operator!=(const char sz[]) const { return this->mStr != sz; }
 
+        /**
+         * 操作字符串
+         * @param s 字符串
+         * @return 自身
+         */
         inline KString &operator=(const std::string &s) {
             this->mStr = s;
+            return *this;
+        }
+
+        inline KString &operator=(const char sz[]) {
+            this->mStr = sz;
+            return *this;
+        }
+
+        inline KString &operator=(const char ch) {
+            this->mStr = ch;
+            return *this;
+        }
+
+        inline KString &operator+=(const std::string &s) {
+            this->mStr += s;
+            return *this;
+        }
+
+        inline KString &operator+=(const char sz[]) {
+            this->mStr += sz;
+            return *this;
+        }
+
+        inline KString &operator+=(const char ch) {
+            this->mStr += ch;
             return *this;
         }
 
