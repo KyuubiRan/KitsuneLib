@@ -4,7 +4,6 @@
 
 #include "KString.h"
 #include <cstdarg>
-#include <cstring>
 #include <fstream>
 
 using std::string;
