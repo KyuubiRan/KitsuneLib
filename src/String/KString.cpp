@@ -68,7 +68,7 @@ size_t KString::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
     }
     size_t result = 0;
     size_t index = s1.find(s2);
-    while (index != INVALID_SIZE) {
+    while (index != std::string::npos) {
         ++result;
         if (index + s2.size() > s1.size()) return result;
         s1 = s1.substr(index + s2.size());
@@ -104,7 +104,7 @@ std::vector<KString> &KString::splitString(const string &delim, std::vector<KStr
     if (this->isEmpty() || delim.empty()) return vKstr;
     KString tmp = *this;
     size_t idx = tmp.find(delim);
-    if (idx == INVALID_SIZE) {
+    if (idx == std::string::npos) {
         vKstr.push_back(tmp);
         return vKstr;
     }
@@ -112,7 +112,7 @@ std::vector<KString> &KString::splitString(const string &delim, std::vector<KStr
         vKstr.push_back(tmp.substring(0, idx));
         tmp = tmp.substring(idx + delim.size());
         idx = tmp.find(delim);
-    } while (idx != INVALID_SIZE);
+    } while (idx != std::string::npos);
     vKstr.push_back(tmp);
     return vKstr;
 }
