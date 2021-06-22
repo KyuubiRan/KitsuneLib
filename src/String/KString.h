@@ -28,6 +28,8 @@ namespace kitsune {
 
         inline operator const std::string &() const { return this->mStr; } // NOLINT(google-explicit-constructor)
 
+        inline operator const char *() const { return this->mStr.c_str(); } // NOLINT(google-explicit-constructor)
+
         /**
          * 比较字符串
          * @param str string
