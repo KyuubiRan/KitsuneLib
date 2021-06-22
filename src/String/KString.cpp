@@ -5,6 +5,7 @@
 #include "KString.h"
 #include <cstdarg>
 #include <fstream>
+#include <memory>
 
 using std::string;
 using std::istreambuf_iterator;
@@ -79,24 +80,23 @@ size_t KString::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
 
 KString &KString::sReplace(const string &needReplacePart, size_t bufSize, const char *format, ...) {
     if (!this->contains(needReplacePart)) return *this;
-    char *buf = new char[bufSize];
+    auto upBuf = std::unique_ptr<char[]>(new char[bufSize]);
     va_list args;
     va_start(args, format);
-    vsprintf(buf, format, args);
+    vsprintf(upBuf.get(), format, args);
     va_end(args);
-    this->replace(needReplacePart, buf);
-    delete[] buf;
+    this->replace(needReplacePart, upBuf.get());
+    delete[] upBuf.get();
     return *this;
 }
 
 KString &KString::sprintf(size_t bufSize, const char *format, ...) {
-    char *buf = new char[bufSize];
+    auto upBuf = std::unique_ptr<char[]>(new char[bufSize]);
     va_list args;
     va_start(args, format);
-    vsprintf(buf, format, args);
+    vsprintf(upBuf.get(), format, args);
     va_end(args);
-    this->mStr = buf;
-    delete[] buf;
+    this->mStr = upBuf.get();
     return *this;
 }
 
