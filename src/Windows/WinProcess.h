@@ -41,7 +41,7 @@ namespace kitsune {
      * @param moduleName 模块名
      * @return 模块基址
      */
-    kitsune::uintptr64 GetModuleBaseAddress(HANDLE hProc, const std::string &moduleName);
+    uintptr64 GetModuleBaseAddress(HANDLE hProc, const std::string &moduleName);
 
     /**
      * 获取模块基址
@@ -50,7 +50,7 @@ namespace kitsune {
      * @param address 传入的地址
      * @return 是否成功
      */
-    bool GetModuleBaseAddress(HANDLE hProc, const std::string &moduleName, kitsune::uintptr64 &address);
+    bool GetModuleBaseAddress(HANDLE hProc, const std::string &moduleName, uintptr64 &address);
 
     /**
      * 计算偏移量
@@ -59,8 +59,7 @@ namespace kitsune {
      * @param vOffsets 偏移量(向量)
      * @return 计算完毕后的地址
      */
-    kitsune::uintptr64
-    CalculateAddress(HANDLE hProc, kitsune::uintptr64 baseAddress, const std::vector<kitsune::uintptr64> &vOffsets);
+    uintptr64 CalculateAddress(HANDLE hProc, uintptr64 baseAddress, const std::vector<uintptr64> &vOffsets);
 
     /**
      * 给当前进程提权 需要管理员权限
