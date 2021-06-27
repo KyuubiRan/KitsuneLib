@@ -24,12 +24,12 @@ KString KString::toUpper() const {
 }
 
 KString &KString::toLowercase() {
-    for (auto &c : this->mStr) { c = std::tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
+    for (auto &c : mStr) { c = std::tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
     return *this;
 }
 
 KString &KString::toUppercase() {
-    for (auto &c : this->mStr) { c = std::toupper(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
+    for (auto &c : mStr) { c = std::toupper(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
     return *this;
 }
 
@@ -37,32 +37,32 @@ bool KString::contains(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
-        return this->toLower().find(tmp) != static_cast<size_t >(-1);
+        return toLower().find(tmp) != static_cast<size_t >(-1);
     }
-    return this->find(sub) != static_cast<size_t >(-1);
+    return find(sub) != static_cast<size_t >(-1);
 }
 
 bool KString::startswith(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
-        return this->toLower().substring(0, tmp.size()) == tmp;
+        return toLower().substring(0, tmp.size()) == tmp;
     }
-    return this->substring(0, sub.size()) == sub;
+    return substring(0, sub.size()) == sub;
 }
 
 bool KString::endswith(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
-        return this->toLower().substring(this->size() - tmp.size()) == tmp;
+        return toLower().substring(size() - tmp.size()) == tmp;
     }
-    return this->substring(this->size() - sub.size()) == sub;
+    return substring(size() - sub.size()) == sub;
 }
 
 size_t KString::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
-    if (this->isEmpty() || sub.empty()) return 0;
-    string s1 = this->mStr, s2 = sub;
+    if (isEmpty() || sub.empty()) return 0;
+    string s1 = mStr, s2 = sub;
     if (ignoreCase) {
         for (auto &c : s1) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
         for (auto &c : s2) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
@@ -79,13 +79,13 @@ size_t KString::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
 }
 
 KString &KString::sReplace(const string &needReplacePart, size_t bufSize, const char *format, ...) {
-    if (!this->contains(needReplacePart)) return *this;
+    if (!contains(needReplacePart)) return *this;
     auto upBuf = std::unique_ptr<char[]>(new char[bufSize]);
     va_list args;
     va_start(args, format);
     vsprintf(upBuf.get(), format, args);
     va_end(args);
-    this->replace(needReplacePart, upBuf.get());
+    replace(needReplacePart, upBuf.get());
     delete[] upBuf.get();
     return *this;
 }
@@ -96,12 +96,12 @@ KString &KString::sprintf(size_t bufSize, const char *format, ...) {
     va_start(args, format);
     vsprintf(upBuf.get(), format, args);
     va_end(args);
-    this->mStr = upBuf.get();
+    mStr = upBuf.get();
     return *this;
 }
 
 std::vector<KString> &KString::splitString(const string &delim, std::vector<KString> &vKstr) {
-    if (this->isEmpty() || delim.empty()) return vKstr;
+    if (isEmpty() || delim.empty()) return vKstr;
     KString tmp = *this;
     size_t idx = tmp.find(delim);
     if (idx == std::string::npos) {
