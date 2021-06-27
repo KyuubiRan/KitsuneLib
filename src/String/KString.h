@@ -27,8 +27,6 @@ namespace kitsune {
 
         inline KString(std::string str) noexcept: mStr(std::move(str)) {} // NOLINT(google-explicit-constructor)
 
-        inline KString(std::string &&str) noexcept: mStr(str) {} // NOLINT(google-explicit-constructor)
-
         inline operator const std::string &() const { return mStr; } // NOLINT(google-explicit-constructor)
 
         inline operator const char *() const { return mStr.c_str(); } // NOLINT(google-explicit-constructor)
