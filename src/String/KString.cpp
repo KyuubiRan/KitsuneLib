@@ -37,9 +37,9 @@ bool KString::contains(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
-        return uppercase().find(tmp) != static_cast<size_t >(-1);
+        return lowercase().find(tmp) != std::string::npos;
     }
-    return find(sub) != static_cast<size_t >(-1);
+    return find(sub) != std::string::npos;
 }
 
 bool KString::startswith(const string &sub, bool ignoreCase) const {
