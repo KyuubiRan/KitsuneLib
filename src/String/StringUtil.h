@@ -20,7 +20,7 @@ namespace kitsune {
      * @param str 字符串
      * @return string
      */
-    std::string ToLower(const std::string &str);
+    std::string Lowercase(const std::string &str);
 
     /**
      * 将字符串转化为大写 并返回str的引用
@@ -34,7 +34,7 @@ namespace kitsune {
      * @param str 字符串
      * @return string
      */
-    std::string ToUpper(const std::string &str);
+    std::string Uppercase(const std::string &str);
 
     /**
      * 查询字符串开头是否与指定字符串相同

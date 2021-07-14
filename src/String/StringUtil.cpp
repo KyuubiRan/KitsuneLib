@@ -14,7 +14,7 @@ string &kitsune::ToLowercase(string &str) {
     return str;
 }
 
-string kitsune::ToLower(const string &str) {
+string kitsune::Lowercase(const string &str) {
     string s1 = str;
     for (auto &c : s1) {
         c = std::tolower(c); // NOLINT(cppcoreguidelines-narrowing-conversions)
@@ -29,7 +29,7 @@ string &kitsune::ToUppercase(string &str) {
     return str;
 }
 
-string kitsune::ToUpper(const string &str) {
+string kitsune::Uppercase(const string &str) {
     string s1 = str;
     for (auto &c : s1) {
         c = std::toupper(c); // NOLINT(cppcoreguidelines-narrowing-conversions)
@@ -43,7 +43,7 @@ bool kitsune::StartsWith(const string &ori, const string &sub, bool ignoreCase) 
         ToLowercase(s1);
         ToLowercase(s2);
     }
-    return s1.substr(0, s2.size()) == s2;
+    return s1.starts_with(s2);
 }
 
 bool kitsune::EndsWith(const string &ori, const string &sub, bool ignoreCase) {
@@ -52,7 +52,7 @@ bool kitsune::EndsWith(const string &ori, const string &sub, bool ignoreCase) {
         ToLowercase(s1);
         ToLowercase(s2);
     }
-    return s1.substr(s1.size() - s2.size()) == s2;
+    return s1.ends_with(s2);
 }
 
 bool kitsune::Contains(const string &ori, const string &sub, bool ignoreCase) {
@@ -62,7 +62,7 @@ bool kitsune::Contains(const string &ori, const string &sub, bool ignoreCase) {
         ToLowercase(s1);
         ToLowercase(s2);
     }
-    return s1.find(s2) != static_cast<size_t >(-1);
+    return s1.find(s2) != std::string::npos;
 }
 
 size_t kitsune::QueryOccurrenceTimes(const string &ori, const string &sub, bool ignoreCase) {
@@ -74,7 +74,7 @@ size_t kitsune::QueryOccurrenceTimes(const string &ori, const string &sub, bool 
     }
     size_t result = 0;
     size_t index = s1.find(s2);
-    while (index != static_cast<size_t>(-1)) {
+    while (index != std::string::npos) {
         ++result;
         if (index + s2.size() > s1.size()) return result;
         s1 = s1.substr(index + s2.size());

@@ -12,170 +12,197 @@
 
 namespace kitsune {
 
-    class KString {
+    class KString : private std::string {
     private:
-        std::string mStr;
-
         friend inline std::ostream &operator<<(std::ostream &os, const KString &ks);
 
         friend inline std::istream &operator>>(std::istream &is, KString &ks);
 
     public:
-        inline KString() : mStr() {}
+        inline KString() : std::string() {}
 
-        inline KString(const char sz[]) : mStr(sz) {} // NOLINT(google-explicit-constructor)
+        inline KString(const char sz[]) : std::string(sz) {} // NOLINT(google-explicit-constructor)
 
-        inline KString(std::string str) noexcept: mStr(std::move(str)) {} // NOLINT(google-explicit-constructor)
+        inline KString(std::string str) noexcept: std::string(std::move(str)) {} // NOLINT(google-explicit-constructor)
 
-        inline operator const std::string &() const { return mStr; } // NOLINT(google-explicit-constructor)
+        inline operator const char *() const { return c_str(); } // NOLINT(google-explicit-constructor)
 
-        inline operator const char *() const { return mStr.c_str(); } // NOLINT(google-explicit-constructor)
+        using std::string::compare;
 
-        /**
-         * 比较字符串
-         * @param str string
-         * @return 结果
-         */
-        [[nodiscard]] inline bool equals(const std::string &str) const { return mStr == str; }
+        using std::string::iterator;
+        using std::string::const_iterator;
 
-        [[nodiscard]] inline bool equals(const char sz[]) const { return mStr == sz; }
+        using std::string::reverse_iterator;
+        using std::string::const_reverse_iterator;
 
-        [[nodiscard]] inline bool operator==(const std::string &str) const { return equals(str); }
+        using std::string::begin;
 
-        [[nodiscard]] inline bool operator==(const char sz[]) const { return equals(sz); }
+        using std::string::end;
 
-        [[nodiscard]] inline bool operator<(const std::string &str) const { return mStr < str; }
+        using std::string::cbegin;
 
-        [[nodiscard]] inline bool operator<=(const std::string &str) const { return mStr <= str; }
+        using std::string::cend;
 
-        [[nodiscard]] inline bool operator<(const char sz[]) const { return mStr < sz; }
+        using std::string::rbegin;
 
-        [[nodiscard]] inline bool operator<=(const char sz[]) const { return mStr <= sz; }
+        using std::string::rend;
 
-        [[nodiscard]] inline bool operator>(const std::string &str) const { return mStr > str; }
+        using std::string::crbegin;
 
-        [[nodiscard]] inline bool operator>=(const std::string &str) const { return mStr >= str; }
+        using std::string::crend;
 
-        [[nodiscard]] inline bool operator>(const char sz[]) const { return mStr > sz; }
-
-        [[nodiscard]] inline bool operator>=(const char sz[]) const { return mStr >= sz; }
-
-        [[nodiscard]] inline bool operator!=(const std::string &str) const { return mStr != str; }
-
-        [[nodiscard]] inline bool operator!=(const char sz[]) const { return mStr != sz; }
-
-        /**
-         * 操作字符串
-         * @param s 字符串
-         * @return 自身
-         */
-        inline KString &operator=(const std::string &s) {
-            mStr = s;
+        inline KString &operator+=(const KString &ks) {
+            std::string::operator+=(ks);
             return *this;
         }
 
-        inline KString &operator=(const char sz[]) {
-            mStr = sz;
-            return *this;
+        inline bool operator==(const KString &ks) const {
+            return this->toString() == ks.toString();
         }
 
-        inline KString &operator=(const char ch) {
-            mStr = ch;
-            return *this;
+        inline bool operator==(const std::string &str) const {
+            return toString() == str;
         }
+
+        inline bool operator==(const char sz[]) const {
+            return toString() == sz;
+        }
+
+        inline bool operator>=(const KString &ks) const {
+            return this->toString() >= ks.toString();
+        }
+
+        inline bool operator>=(const std::string &str) const {
+            return toString() >= str;
+        }
+
+        inline bool operator>=(const char sz[]) const {
+            return toString() >= sz;
+        }
+
+        inline bool operator<=(const KString &ks) const {
+            return this->toString() <= ks.toString();
+        }
+
+        inline bool operator<=(const std::string &str) const {
+            return toString() <= str;
+        }
+
+        inline bool operator<=(const char sz[]) const {
+            return toString() <= sz;
+        }
+
+        inline bool operator>(const KString &ks) const {
+            return this->toString() > ks.toString();
+        }
+
+        inline bool operator>(const std::string &str) const {
+            return toString() > str;
+        }
+
+        inline bool operator>(const char sz[]) const {
+            return toString() > sz;
+        }
+
+        inline bool operator<(const KString &ks) const {
+            return this->toString() < ks.toString();
+        }
+
+        inline bool operator<(const std::string &str) const {
+            return toString() < str;
+        }
+
+        inline bool operator<(const char sz[]) const {
+            return toString() < sz;
+        }
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "HidingNonVirtualFunction"
 
         inline KString &operator+=(const std::string &s) {
-            mStr += s;
+            std::string::operator+=(s);
             return *this;
         }
 
         inline KString &operator+=(const char sz[]) {
-            mStr += sz;
+            std::string::operator+=(sz);
             return *this;
         }
 
         inline KString &operator+=(const char ch) {
-            mStr += ch;
-            return *this;
-        }
-
-        [[nodiscard]] inline std::string::iterator begin() { return mStr.begin(); }
-
-        [[nodiscard]] inline std::string::iterator end() { return mStr.end(); }
-
-        [[nodiscard]] inline std::string::const_iterator cbegin() const noexcept { return mStr.cbegin(); }
-
-        [[nodiscard]] inline std::string::const_iterator cend() const noexcept { return mStr.cend(); }
-
-        [[nodiscard]] inline std::string::reverse_iterator rbegin() { return mStr.rbegin(); }
-
-        [[nodiscard]] inline std::string::reverse_iterator rend() { return mStr.rend(); }
-
-        [[nodiscard]] inline std::string::const_reverse_iterator
-        crbegin() const noexcept { return mStr.crbegin(); }
-
-        [[nodiscard]] inline std::string::const_reverse_iterator
-        crend() const noexcept { return mStr.crend(); }
-
-        inline KString &operator=(const KString &s) = default;
-
-        /**
-         * 拼接字符串
-         * @param str string
-         * @return 自身引用
-         */
-        inline KString &append(const std::string &str) {
-            mStr.append(str);
+            std::string::operator+=(ch);
             return *this;
         }
 
         inline KString &append(const char sz[]) {
-            mStr.append(sz);
+            std::string::append(sz);
+            return *this;
+        }
+
+        inline KString &append(const std::string &s) {
+            std::string::append(s);
+            return *this;
+        }
+
+#pragma clang diagnostic pop
+
+        inline KString &append(const KString &ks) {
+            std::string::append(ks);
             return *this;
         }
 
         inline KString &append(char ch) {
-            mStr.append(std::to_string(ch));
+            std::string::append(std::to_string(ch));
             return *this;
         }
 
         inline KString &append(short sh) {
-            mStr.append(std::to_string(sh));
+            std::string::append(std::to_string(sh));
             return *this;
         }
 
         inline KString &append(int i) {
-            mStr.append(std::to_string(i));
+            std::string::append(std::to_string(i));
             return *this;
         }
 
         inline KString &append(unsigned ui) {
-            mStr.append(std::to_string(ui));
+            std::string::append(std::to_string(ui));
             return *this;
         }
 
-        inline KString &append(long long int ll) {
-            mStr.append(std::to_string(ll));
+        inline KString &append(long l) {
+            std::string::append(std::to_string(l));
             return *this;
         }
 
-        inline KString &append(unsigned long long int ull) {
-            mStr.append(std::to_string(ull));
+        inline KString &append(unsigned long ul) {
+            std::string::append(std::to_string(ul));
+            return *this;
+        }
+
+        inline KString &append(long long ll) {
+            std::string::append(std::to_string(ll));
+            return *this;
+        }
+
+        inline KString &append(unsigned long long ull) {
+            std::string::append(std::to_string(ull));
             return *this;
         }
 
         inline KString &append(double d) {
-            mStr.append(std::to_string(d));
+            std::string::append(std::to_string(d));
             return *this;
         }
 
         inline KString &append(long double ld) {
-            mStr.append(std::to_string(ld));
+            std::string::append(std::to_string(ld));
             return *this;
         }
 
         inline KString &append(float f) {
-            mStr.append(std::to_string(f));
+            std::string::append(std::to_string(f));
             return *this;
         }
 
@@ -184,29 +211,30 @@ namespace kitsune {
          * @param str string
          * @return index
          */
-        [[nodiscard]] inline size_t find(const std::string &str) const { return mStr.find(str); }
+        using std::string::find;
 
-        [[nodiscard]] inline size_t find(const KString &kStr) const { return mStr.find(kStr.mStr); }
-
-        [[nodiscard]] inline size_t find(const char sz[]) const { return mStr.find(sz); }
-
-        [[nodiscard]] inline size_t find(const char ch) const { return mStr.find(ch); }
+        [[nodiscard]] inline size_t find(const KString &kStr) const { return std::string::find(kStr); }
 
         /**
          * @return 字符串长度
          */
-        [[nodiscard]] inline size_t size() const { return mStr.size(); }
+        using std::string::size;
 
-        [[nodiscard]] inline size_t length() const { return mStr.length(); }
+        using std::string::length;
 
-        [[nodiscard]] inline bool isEmpty() const { return mStr.empty(); }
+        [[nodiscard]] inline bool isEmpty() const { return empty(); }
 
-        [[nodiscard]] inline bool isNotEmpty() const { return !mStr.empty(); }
+        [[nodiscard]] inline bool isNotEmpty() const { return !empty(); }
 
         /**
          * @return C风格字符串
          */
-        [[nodiscard]] inline const char *toCString() const { return mStr.c_str(); }
+        [[nodiscard]] inline const char *toCString() const { return c_str(); }
+
+        /**
+         * @return std::string类型字符串
+         */
+        [[nodiscard]] const std::string &toString() const { return *this; }
 
         /**
          * 截取字符串 并返回新的对象
@@ -215,7 +243,7 @@ namespace kitsune {
          * @return 截取完后的新字符串
          */
         [[nodiscard]] inline KString substring(size_t pos = 0, size_t end = std::string::npos) const {
-            return KString(mStr.substr(pos, end));
+            return substr(pos, end);
         }
 
         /**
@@ -261,20 +289,20 @@ namespace kitsune {
          * @return 自身引用
          */
         inline KString &replace(const std::string &ori, const std::string &sub) {
-            size_t idx = mStr.find(ori);
-            if (idx != std::string::npos) mStr.replace(idx, ori.size(), sub);
+            size_t idx = std::string::find(ori);
+            if (idx != std::string::npos) std::string::replace(idx, ori.size(), sub);
             return *this;
         }
 
         inline KString &replace(const std::string &ori, size_t n, const char szSub[]) {
-            size_t idx = mStr.find(ori);
-            if (idx != std::string::npos) mStr.replace(idx, n, szSub);
+            size_t idx = std::string::find(ori);
+            if (idx != std::string::npos) replace(idx, n, szSub);
             return *this;
         }
 
         inline KString &replace(const char szOri[], size_t n, const char szSub[]) {
-            size_t idx = mStr.find(szOri);
-            if (idx != std::string::npos) mStr.replace(idx, n, szSub);
+            size_t idx = std::string::find(szOri);
+            if (idx != std::string::npos) std::string::replace(idx, n, szSub);
             return *this;
         }
 
@@ -308,33 +336,23 @@ namespace kitsune {
          * @return 自身引用
          */
         inline KString &replace(size_t pos, const std::string &sub) {
-            mStr.replace(pos, sub.size(), sub);
+            std::string::replace(pos, sub.size(), sub);
             return *this;
         }
 
-        /**
-         * 从指定位置开始替换字符串的内容
-         * @param pos 起始位置
-         * @param n 大小
-         * @param szSub 替换成
-         * @return 自身引用
-         */
-        inline KString &replace(size_t pos, size_t n, const char szSub[]) {
-            mStr.replace(pos, n, szSub);
-            return *this;
-        }
+        using std::string::replace;
 
         /**
          * 返回一个新的对象 并将字符串内容转化为小写
          * @return KString
          */
-        [[nodiscard]] KString toLower() const;
+        [[nodiscard]] KString lowercase() const;
 
         /**
          * 返回一个新的对象 并将字符串内容转化为大写
          * @return KString
          */
-        [[nodiscard]] KString toUpper() const;
+        [[nodiscard]] KString uppercase() const;
 
         /**
          * 将自身字符串内容转化为小写 并返回自身引用
@@ -359,34 +377,32 @@ namespace kitsune {
         /**
          * 分割字符串
          * @param delim 分隔符
-         * @param vKstr KString向量
+         * @param vKS KString向量
          * @return KString向量
          */
-        std::vector<KString> &splitString(const std::string &delim, std::vector<KString> &vKstr);
+        std::vector<KString> &split(const std::string &delim, std::vector<KString> &vKS);
+
+        inline std::vector<KString> splitString(const std::string &delim) {
+            std::vector<KString> v;
+            return split(delim, v);
+        }
 
         /**
          * 读取整个文件流中的字符 返回KString对象
          * @param ifs ifstream
          * @return KString对象
          */
-        static KString ReadText(std::ifstream &ifs);
+        static KString readText(std::ifstream &ifs);
     };
 
-    /**
-     * 往流内写入字符串
-     * @param os ostream
-     * @param ks KString
-     * @return ostream
-     */
-    inline std::ostream &operator<<(std::ostream &os, const KString &ks) { return os << ks.mStr; }
+    inline std::ostream &operator<<(std::ostream &os, const KString &ks) {
+        return os << (std::string &) ks;
+    }
 
-    /**
-     * 从流内读取字符串
-     * @param is istream
-     * @param ks KString
-     * @return istream
-     */
-    inline std::istream &operator>>(std::istream &is, KString &ks) { return is >> ks.mStr; }
+    inline std::istream &operator>>(std::istream &is, KString &ks) {
+        is >> (std::string &) ks;
+        return is;
+    }
 }
 
 #endif //KITSUNELIB_KSTRING_H

@@ -11,25 +11,25 @@ using std::string;
 using std::istreambuf_iterator;
 using namespace kitsune;
 
-KString KString::toLower() const {
+KString KString::lowercase() const {
     KString tmp = *this;
-    for (auto &c : tmp.mStr) { c = std::tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
+    for (auto &c : tmp) { c = std::tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
     return tmp;
 }
 
-KString KString::toUpper() const {
+KString KString::uppercase() const {
     KString tmp = *this;
-    for (auto &c :tmp.mStr) { c = std::toupper(c); }// NOLINT(cppcoreguidelines-narrowing-conversions)
+    for (auto &c :tmp) { c = std::toupper(c); }// NOLINT(cppcoreguidelines-narrowing-conversions)
     return tmp;
 }
 
 KString &KString::toLowercase() {
-    for (auto &c : mStr) { c = std::tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
+    for (auto &c : *this) { c = std::tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
     return *this;
 }
 
 KString &KString::toUppercase() {
-    for (auto &c : mStr) { c = std::toupper(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
+    for (auto &c : *this) { c = std::toupper(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
     return *this;
 }
 
@@ -37,32 +37,34 @@ bool KString::contains(const string &sub, bool ignoreCase) const {
     if (ignoreCase) {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
-        return toLower().find(tmp) != static_cast<size_t >(-1);
+        return uppercase().find(tmp) != static_cast<size_t >(-1);
     }
     return find(sub) != static_cast<size_t >(-1);
 }
 
 bool KString::startswith(const string &sub, bool ignoreCase) const {
-    if (ignoreCase) {
+    if (!ignoreCase) {
+        return std::string::starts_with(sub);
+    } else {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
-        return toLower().substring(0, tmp.size()) == tmp;
+        return lowercase().toString().starts_with(tmp);
     }
-    return substring(0, sub.size()) == sub;
 }
 
 bool KString::endswith(const string &sub, bool ignoreCase) const {
-    if (ignoreCase) {
+    if (!ignoreCase) {
+        return std::string::ends_with(sub);
+    } else {
         string tmp = sub;
         for (auto &c : tmp) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
-        return toLower().substring(size() - tmp.size()) == tmp;
+        return lowercase().toString().ends_with(tmp);
     }
-    return substring(size() - sub.size()) == sub;
 }
 
 size_t KString::queryOccurrenceTimes(const string &sub, bool ignoreCase) const {
     if (isEmpty() || sub.empty()) return 0;
-    string s1 = mStr, s2 = sub;
+    string s1 = *this, s2 = sub;
     if (ignoreCase) {
         for (auto &c : s1) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
         for (auto &c : s2) { c = tolower(c); } // NOLINT(cppcoreguidelines-narrowing-conversions)
@@ -86,7 +88,6 @@ KString &KString::sReplace(const string &needReplacePart, size_t bufSize, const 
     vsprintf(upBuf.get(), format, args);
     va_end(args);
     replace(needReplacePart, upBuf.get());
-    delete[] upBuf.get();
     return *this;
 }
 
@@ -96,28 +97,28 @@ KString &KString::sprintf(size_t bufSize, const char *format, ...) {
     va_start(args, format);
     vsprintf(upBuf.get(), format, args);
     va_end(args);
-    mStr = upBuf.get();
+    *this = upBuf.get();
     return *this;
 }
 
-std::vector<KString> &KString::splitString(const string &delim, std::vector<KString> &vKstr) {
-    if (isEmpty() || delim.empty()) return vKstr;
+std::vector<KString> &KString::split(const string &delim, std::vector<KString> &vKS) {
+    if (isEmpty() || delim.empty()) return vKS;
     KString tmp = *this;
     size_t idx = tmp.find(delim);
     if (idx == std::string::npos) {
-        vKstr.push_back(tmp);
-        return vKstr;
+        vKS.push_back(tmp);
+        return vKS;
     }
     do {
-        vKstr.push_back(tmp.substring(0, idx));
+        vKS.push_back(tmp.substring(0, idx));
         tmp = tmp.substring(idx + delim.size());
         idx = tmp.find(delim);
     } while (idx != std::string::npos);
-    vKstr.push_back(tmp);
-    return vKstr;
+    vKS.push_back(tmp);
+    return vKS;
 }
 
-KString KString::ReadText(std::ifstream &ifs) {
+KString KString::readText(std::ifstream &ifs) {
     string str((istreambuf_iterator<char>(ifs)), istreambuf_iterator<char>());
     return KString(str);
 }
