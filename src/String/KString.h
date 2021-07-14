@@ -129,7 +129,7 @@ namespace kitsune {
             return *this;
         }
 
-        inline KString &operator+=(const char ch) {
+        inline KString &operator+=(char ch) {
             std::string::operator+=(ch);
             return *this;
         }
