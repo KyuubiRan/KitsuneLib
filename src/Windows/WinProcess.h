@@ -30,7 +30,7 @@ namespace kitsune {
     /**
      *
      * @param procName 进程名称
-     * @param pid 传入的pid
+     * @param pid 进程id
      * @return 是否成功
      */
     bool GetProcessPidByName(const std::string &procName, DWORD &pid);
@@ -51,6 +51,14 @@ namespace kitsune {
      * @return 是否成功
      */
     bool GetModuleBaseAddress(HANDLE hProc, const std::string &moduleName, uintptr64 &address);
+
+    /**
+     * 获取模块
+     * @param pid 进程id
+     * @param moduleName 模块名
+     * @return 模块
+     */
+    HMODULE GetProcessModuleHandle(DWORD pid, const char moduleName[]);
 
     /**
      * 计算偏移量
@@ -88,7 +96,31 @@ namespace kitsune {
      * @param vPe32 PROCESSENTRY32向量
      * @return 是否成功
      */
-    bool EnumProcessEntry32(std::vector<PROCESSENTRY32> &vPe32);
+    bool EnumProcessEntry32(DWORD pid, std::vector<PROCESSENTRY32> &vPe32);
+
+    /**
+     * 搜索BYTES的位置
+     * @param origin 源BYTES
+     * @param search 要搜索的BYTES
+     * @return 成功时返回index 失败时返回npos
+     */
+    size ScanBytes(const std::vector<BYTE> &origin, const std::vector<BYTE> &search);
+
+    /**
+     * 搜索BYTES的位置
+     * @param origin 源BYTES
+     * @param nOriSize 源BYTES大小
+     * @param search 要搜索的BYTES
+     * @param nSchSize 要搜索的BYTES大小
+     * @return 成功时返回index 失败时返回npos
+     */
+    inline size ScanBytes(const BYTE origin[], size nOriSize, const BYTE search[], size nSchSize) {
+        return ScanBytes(std::vector<BYTE>(origin, origin + nOriSize), std::vector<BYTE>(search, search + nSchSize));
+    }
+
+//    std::vector<uintptr64> &
+//    AobScan(HANDLE hProc, uintptr64 startAddress, const BYTE bytes[], size nSize, std::vector<uintptr64> &result,
+//            size nScanSize = 4096);
 }
 #else
 #error "OS NOT SUPPORTED!"
